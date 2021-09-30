@@ -17,6 +17,8 @@ Implementations in other languages:
 | :--- | :--- | :----- | :-- | :--- |
 | [Done](https://github.com/TwilioDevEd/client-quickstart-csharp) | [Done](https://github.com/TwilioDevEd/client-quickstart-java)  | [Done](https://github.com/TwilioDevEd/client-quickstart-python)  | [Done](https://github.com/TwilioDevEd/client-quickstart-php) | [Done](https://github.com/TwilioDevEd/client-quickstart-ruby)  |
 
+> The original Twilio example code is expanded to combine Voice and Messaging.
+
 ## Set Up
 
 ### Requirements
