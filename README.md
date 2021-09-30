@@ -3,7 +3,7 @@
 </a>
 
 # Twilio Client Quickstart for Node.js
-![](https://github.com/TwilioDevEd/client-quickstart-node/workflows/Node.js/badge.svg)
+> *The original Twilio example code expanded to combine **Voice** and **Messaging**.*
 
 > This template is part of Twilio CodeExchange. If you encounter any issues with this code, please open an issue at [github.com/twilio-labs/code-exchange/issues](https://github.com/twilio-labs/code-exchange/issues).
 
@@ -16,8 +16,6 @@ Implementations in other languages:
 | .NET | Java | Python | PHP | Ruby |
 | :--- | :--- | :----- | :-- | :--- |
 | [Done](https://github.com/TwilioDevEd/client-quickstart-csharp) | [Done](https://github.com/TwilioDevEd/client-quickstart-java)  | [Done](https://github.com/TwilioDevEd/client-quickstart-python)  | [Done](https://github.com/TwilioDevEd/client-quickstart-php) | [Done](https://github.com/TwilioDevEd/client-quickstart-ruby)  |
-
-> The original Twilio example code is expanded to combine Voice and Messaging.
 
 ## Set Up
 
