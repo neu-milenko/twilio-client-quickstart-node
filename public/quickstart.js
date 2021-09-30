@@ -28,7 +28,7 @@
         // changes the behavior of the SDK to consider a call `ringing` starting
         // from the connection to the TwiML backend to when the recipient of
         // the `Dial` verb answers.
-        enableRingingState: true
+        enableRingingState: true,
       });
 
       device.on("ready", function(device) {
@@ -41,7 +41,7 @@
       });
 
       device.on("connect", function(conn) {
-        log("Successfully established call!");
+        log("Device connected!");
         document.getElementById("button-call").style.display = "none";
         document.getElementById("button-hangup").style.display = "inline";
         volumeIndicators.style.display = "block";
@@ -56,7 +56,10 @@
       });
 
       device.on("incoming", function(conn) {
-        log("Incoming connection from " + conn.parameters.From);
+        console.dir(conn);
+        log("Incoming call from " + conn.parameters.From);
+        console.log('Incoming call');
+        console.dir(conn);
         var archEnemyPhoneNumber = "+12093373517";
 
         if (conn.parameters.From === archEnemyPhoneNumber) {
@@ -89,7 +92,7 @@
       To: document.getElementById("phone-number").value
     };
 
-    console.log("Calling " + params.To + "...");
+    log("Calling " + params.To + "...");
     if (device) {
       var outgoingConnection = device.connect(params);
       outgoingConnection.on("ringing", function() {
@@ -104,6 +107,28 @@
     if (device) {
       device.disconnectAll();
     }
+  };
+
+  // Bind button to make call
+  document.getElementById("button-send").onclick = function() {
+    // get the phone number to connect the call to
+    var params = {
+      To: document.getElementById("phone-number").value,
+      Message: document.getElementById("message-to-send").value
+    };
+
+    fetch('/sms', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+      },
+      body: JSON.stringify(params)
+    })
+    .then(async res => {
+      const sid = await res.text();
+      console.log(`messageSid: ${sid}`);
+      log(`Message to ${params.To}: ${params.Message }`)
+    });
   };
 
   document.getElementById("get-devices").onclick = function() {
@@ -201,4 +226,30 @@
     var div = document.getElementById("client-name");
     div.innerHTML = "Your client name: <strong>" + clientName + "</strong>";
   }
+
+  let socket = new WebSocket("ws://localhost:3000");
+
+  socket.onopen = function(e) {
+    log("Connection established");
+    // alert("Sending to server");
+    // socket.send("My name is John");
+  };
+  
+  socket.onmessage = function(event) {
+    log(`${event.data}`);
+  };
+  
+  socket.onclose = function(event) {
+    if (event.wasClean) {
+      log(`Connection closed cleanly, code=${event.code} reason=${event.reason}`);
+    } else {
+      // e.g. server process killed or network down
+      // event.code is usually 1006 in this case
+      log('Connection died');
+    }
+  };
+  
+  socket.onerror = function(error) {
+    log(`[error] ${error.message} ${error.reason}`);
+  };  
 });
